@@ -1,0 +1,28 @@
+--Create a makeup store database
+
+CREATE TABLE "makeup" (id INTEGER PRIMARY KEY, item TEXT, quantity INTEGER, price INTEGER, rating INTEGER); 
+
+INSERT INTO makeup VALUES (1, "mascara", 15, 11, 4);
+INSERT INTO makeup VALUES (2, "eyeliner", 10, 8, 5);
+INSERT INTO makeup VALUES (3, "lipstick", 13, 5, 3);
+INSERT INTO makeup VALUES (4, "foundation", 20, 19, 5);
+INSERT INTO makeup VALUES (5, "concealer", 20, 8, 3);
+INSERT INTO makeup VALUES (6, "blush", 4, 5, 2);
+INSERT INTO makeup VALUES (7, "bronzer", 2, 5, 3);
+INSERT INTO makeup VALUES (8, "eyeshadow", 6, 3, 2);
+INSERT INTO makeup VALUES (9, "brow gel", 1, 10, 4);
+INSERT INTO makeup VALUES (10, "lip gloss", 7, 7, 3);
+INSERT INTO makeup VALUES (11, "highlighter", 3, 5, 1);
+INSERT INTO makeup VALUES (12, "powder", 10, 7, 2);
+INSERT INTO makeup VALUES (13, "lip balm", 4, 12, 5);
+INSERT INTO makeup VALUES (14, "nails", 23, 6, 3);
+INSERT INTO makeup VALUES (15, "setting spray", 3, 7, 3);
+
+--Display the database in it's entirety 
+SELECT * FROM makeup; 
+
+--What is the average price of items in makeup store?
+SELECT AVG(price) FROM makeup; 
+
+--How are higher priced items rated?
+SELECT item, price, rating FROM makeup WHERE price >= 10 ORDER BY rating;
