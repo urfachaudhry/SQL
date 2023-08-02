@@ -24,5 +24,5 @@ SELECT * FROM makeup;
 --What is the average price of items in makeup store?
 SELECT AVG(price) FROM makeup; 
 
---How are higher priced items rated?
-SELECT item, price, rating FROM makeup WHERE price >= 10 ORDER BY rating;
+--How are items rated 4 stars and up priced? 
+SELECT item, price, rating FROM makeup WHERE rating >= 4 ORDER BY price;
