@@ -1,0 +1,72 @@
+CREATE TABLE movie_stars (id INTEGER PRIMARY KEY, fullname TEXT, age TEXT, manager_id INTEGER, email TEXT);
+INSERT INTO movie_stars VALUES (1, "Adam Main", 45, 1, "cole.space@manager.com");
+INSERT INTO movie_stars VALUES (2, "Isabelle King", 35, 2, "felicia.oswald@manager.com"); 
+INSERT INTO movie_stars VALUES (3, "Lloyd Baxter", 37, 3, "john.smith@manager.com"); 
+INSERT INTO movie_stars VALUES (4, "Preity May", 30, 4, "franklin.sierra@manager.com"); 
+INSERT INTO movie_stars VALUES (5, "Robert Lampton", 50, 5, "jay.blackwell@manager.com"); 
+INSERT INTO movie_stars VALUES (6, "Anna Marie", 47, 6, "leighton.brown@manager.com"); 
+INSERT INTO movie_stars VALUES (7, "Nicole Shade", 35, 7, "sam.higgins@manager.com");
+INSERT INTO movie_stars VALUES (8, "Carl Winston", 33, 8, "tyler.vanderwalt@manager.com"); 
+INSERT INTO movie_stars VALUES (9, "Jacob Highlander", 49, 9, "todd.doe@manager.com");
+INSERT INTO movie_stars VALUES (10, "Peter Smith", 41, 10, "robert.harewall@manager.com"); 
+INSERT INTO movie_stars VALUES (11, "May Belle", 31, 11, "dominik.townsend@manager.com");
+INSERT INTO movie_stars VALUES (12, "Jenny Blake", 23, 12, "oliva.hansen@manager.com");
+INSERT INTO movie_stars VALUES (13, "David Brock", 54, 13, "valerie.smith@manager.com");
+INSERT INTO movie_stars VALUES (14, "Sam Kingston", 43, 14, "nia.thompson@manager.com"); 
+INSERT INTO movie_stars VALUES (15, "Nova Crosby", 44, 15, "yasmin.maldoro@manager.com"); 
+INSERT INTO movie_stars VALUES (16, "Remy Rivers", 36, 16, "fiona.burke@manager.com"); 
+
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY, movie_star_id INTEGER, title TEXT, released INTEGER);
+INSERT INTO movies VALUES (1, 3, "Far Apart", 2009); 
+INSERT INTO movies VALUES (2, 3, "Away we Go", 2010);
+INSERT INTO movies VALUES (3, 6,  "Long Overdue", 2006); 
+INSERT INTO movies VALUES (4, 14, "Galactic Storm", 2010);
+INSERT INTO movies VALUES (5, 9, "Lost Treasure", 2008); 
+INSERT INTO movies VALUES (6, 4, "Grass is Greener", 2013);
+INSERT INTO movies VALUES (7, 4, "All Things Pink", 2010);
+INSERT INTO movies VALUES (8, 8, "Project Marriage", 2015);
+INSERT INTO movies VALUES (9, 1, "New Boy", 2017); 
+INSERT INTO movies VALUES (10, 1, "D-Day", 2019); 
+INSERT INTO movies VALUES (11, 1, "War in the Earth's Core", 2021); 
+INSERT INTO movies VALUES (12, 13, "Werewolves", 2014);
+INSERT INTO movies VALUES (13, 10, "The Fairy", 2005); 
+INSERT INTO movies VALUES (14, 5, "Potholes", 2004); 
+INSERT INTO movies VALUES (15, 15, "Game of Fire", 2017); 
+INSERT INTO movies VALUES (16, 16, "Life As We Know It", 2022); 
+
+
+CREATE TABLE married (id INTEGER PRIMARY KEY, person1_id INTEGER, person2_id INTEGER);
+INSERT INTO married VALUES (1, 1, 7);
+INSERT INTO married VALUES (2, 3, 11); 
+INSERT INTO married VALUES (3, 5, 6); 
+
+
+/* List of movie stars and the movies they made */ 
+SELECT movie_stars.fullname AS movie_stars, movies.title
+    FROM movie_stars
+    JOIN movies
+    ON movie_stars.id = movies.movie_star_id;
+    
+
+/* List of all movie stars and their respective movies */ 
+SELECT movie_stars.fullname AS movie_stars, movies.title
+    FROM movie_stars
+    LEFT OUTER JOIN movies
+    ON movie_stars.id = movies.movie_star_id; 
+    
+
+/* Name of each movie star next to their manager's email */ 
+SELECT movie_stars.fullname, manager.email 
+    FROM movie_stars
+    LEFT OUTER JOIN movie_stars manager
+    ON movie_stars.manager_id = manager.id; 
+    
+
+/* Which movie stars are married to each other? */ 
+SELECT a.fullname, b.fullname
+    FROM married
+    JOIN movie_stars a
+    ON married.person1_id = a.id
+    JOIN movie_stars b
+    ON married.person2_id = b.id;
