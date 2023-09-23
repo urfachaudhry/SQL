@@ -1,3 +1,6 @@
+- This project reveals insights about movie stars and the movies they have starred in. 
+- The project is written in standard SQL and utilized the data from the two datasets below.
+
 CREATE TABLE movie_stars (id INTEGER PRIMARY KEY, fullname TEXT, age TEXT, manager_id INTEGER, email TEXT);
 INSERT INTO movie_stars VALUES (1, "Adam Main", 45, 1, "cole.space@manager.com");
 INSERT INTO movie_stars VALUES (2, "Isabelle King", 35, 2, "felicia.oswald@manager.com"); 
@@ -41,6 +44,7 @@ INSERT INTO married VALUES (1, 1, 7);
 INSERT INTO married VALUES (2, 3, 11); 
 INSERT INTO married VALUES (3, 5, 6); 
 
+- The following SQL was written to get specific insights on the movie stars and their movies.
 
 /* List of movie stars and the movies they made */ 
 SELECT movie_stars.fullname AS movie_stars, movies.title
