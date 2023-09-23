@@ -1,4 +1,5 @@
---Create a makeup store database
+- This project gives insight to a makeup store and the products they carry. 
+- The project is written in standard SQL and utilizes the below dataset.
 
 CREATE TABLE "makeup" (id INTEGER PRIMARY KEY, item TEXT, quantity INTEGER, price INTEGER, rating INTEGER); 
 
