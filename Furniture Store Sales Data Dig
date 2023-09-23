@@ -1,5 +1,5 @@
-/* This project reveals insights about a furniture stores sales */ 
-/* The project uses standard SQL utilizing data in the below table */ 
+- This project reveals insights about a furniture stores sales.
+- The project uses standard SQL utilizing data in the below table.
 
 CREATE TABLE sales(
   ID INTEGER  NOT NULL PRIMARY KEY
@@ -120,7 +120,7 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 
 
 
-/* The following SQL is written to answer questions specific to the furniture store sales dataset*/ 
+- The following SQL is written to answer questions specific to the furniture store sales dataset.
 
 
 
