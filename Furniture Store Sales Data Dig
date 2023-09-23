@@ -1,4 +1,6 @@
-/* Put your data in here and query it! */
+/* This project reveals insights about a furniture stores sales */ 
+/* The project uses standard SQL utilizing data in the below table */ 
+
 CREATE TABLE sales(
   ID INTEGER  NOT NULL PRIMARY KEY
 , transaction_date TEXT
@@ -117,7 +119,10 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/13/09 19:39','Chair',1200,'Visa','Jolene','Englewood','CO','United states','1/6/09 22:00','1/14/09 22:02',39.64778,-104.98722);
 
 
-SELECT * FROM sales; 
+
+/* The following SQL is written to answer questions specific to the furniture store sales dataset*/ 
+
+
 
 /* What is the highest price an item is sold? */ 
 SELECT MAX(price) FROM sales; 
