@@ -1,0 +1,122 @@
+/* This SQL project consists of a database which represents a digital media store */
+/* SQL queries have been utilized to derive meaningful insights from the database */ 
+
+
+/* How many customers are there in the USA alone? */ 
+SELECT COUNT(CustomerId) AS 'Total Customers' FROM chinook.customers WHERE Country = 'USA';
+
+/* Show customers that are not in the United Kingdom */ 
+SELECT CustomerId, FirstName, LastName, Country FROM chinook.customers WHERE Country <> 'United Kingdom'; 
+
+/* Show only the customers from the United Kingdom */ 
+SELECT Customerid, FirstName, LastName, Country 
+FROM chinook.customers
+WHERE Country = 'United Kingdom';
+
+/* Find all invoices from the customers who are in the United Kingdom */ 
+SELECT inv.InvoiceId, cust.FirstName, cust.LastName, inv.BillingCountry, inv.InvoiceDate
+FROM chinook.invoices AS inv 
+LEFT JOIN chinook.customers AS cust
+ON inv.CustomerId = cust.CustomerId
+WHERE inv.BillingCountry = 'United Kingdom'; 
+
+/* What albums were made by the artist Queen */ 
+SELECT a.Artistid, a.Name, b.Title 
+FROM chinook.artists AS a
+LEFT JOIN chinook.albums AS b
+ON a.Artistid = b.Artistid
+WHERE a.Name = 'Queen'; 
+
+/* Show all Sales Support Agents in Calgary */ 
+SELECT EmployeeId, LastName, FirstName, City 
+FROM chinook.employees
+WHERE Title = 'Sales Support Agent' 
+AND City = 'Calgary'; 
+
+/* Select a distinct list of genres */ 
+SELECT DISTINCT Name FROM chinook.genres;
+
+/* Display invoices associated with each Sales Agent */ 
+SELECT inv.InvoiceId, emp.FirstName, emp.LastName
+FROM chinook.invoices AS inv
+JOIN chinook.customers AS cust 
+ON inv.CustomerId = cust.CustomerId
+JOIN chinook.employees AS emp
+ON emp.EmployeeId = cust.SupportRepId; 
+
+/* Show the Invoice Total, customer name, country, and Sales Agent for all invoices and customers */ 
+SELECT cust.FirstName, cust.LastName, emp.FirstName, emp.LastName, cust.Country, inv.Total
+FROM chinook.customers AS cust
+JOIN chinook.employees AS emp
+ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.invoices AS inv
+ON inv.Customerid = cust.CustomerId;
+
+/* What are the total sales in 2012 */ 
+SELECT ROUND(SUM(Total),2) 
+FROM chinook.invoices
+WHERE InvoiceDate LIKE '2013%';
+
+/* How many invoices were there in 2013 */ 
+SELECT COUNT(InvoiceId) AS 'Total Invoices' 
+FROM chinook.invoices
+WHERE InvoiceDate BETWEEN '2013-01-01 00:00:00' AND '2013-12-31 00:00:00'; 
+
+/* Purchased track name with each invoice line ID */ 
+SELECT t.Name, i.InvoiceLineId
+FROM chinook.tracks AS t
+JOIN chinook.invoice_items AS i 
+ON t.TrackId = i.TrackId; 
+
+/* Query that shows purchased track name and artist name with each invoice line ID */
+SELECT t.Name AS track, a.Name AS artist, i.InvoiceLineId
+FROM chinook.invoice_items AS i
+LEFT JOIN chinook.tracks AS t
+ON t.TrackId = i.TrackId
+INNER JOIN chinook.albums AS al
+ON al.AlbumId = t.AlbumId 
+LEFT JOIN chinook.artists AS a
+ON a.ArtistId = al.ArtistId;
+
+/* Query that shows all tracks, include album name, media and genre */ 
+SELECT t.Name, al.Title, m.Name, g.Name
+FROM chinook.albums AS al
+JOIN chinook.tracks AS t
+ON al.AlbumId = t.AlbumId
+JOIN chinook.media_types AS m
+ON m.MediaTypeId = t.MediaTypeId
+JOIN chinook.genres AS g
+ON g.GenreId = t.GenreId;
+
+/* Total sales made by each agent rounded to 2 decimals*/ 
+SELECT emp.FirstName, emp.LastName, ROUND(SUM(inv.Total),2) AS 'Total Sales'
+FROM chinook.employees AS emp
+JOIN chinook.customers AS cust
+ON emp.EmployeeId = cust.SupportRepId
+JOIN chinook.invoices AS inv
+ON cust.CustomerId = inv.CustomerId
+WHERE emp.Title = 'Sales Support Agent'
+GROUP BY emp.FirstName;
+
+/* Which sales agent was the most successful in sales in 2009? */
+SELECT emp.FirstName, emp.LastName, ROUND(SUM(inv.Total),2) AS 'Total Sales'
+FROM chinook.employees AS emp
+JOIN chinook.customers AS cust
+ON emp.EmployeeId = cust.SupportRepId
+JOIN chinook.invoices AS inv
+ON cust.CustomerId = inv.CustomerId
+WHERE emp.Title = 'Sales Support Agent'
+AND inv.InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
+GROUP BY emp.FirstName
+ORDER BY 'Total Sales' DESC
+LIMIT 1;
+
+/* Separate tracks duration into categories of Long, Medium, and Short */
+SELECT Name, Milliseconds,
+    CASE
+     WHEN Milliseconds >= 300000 THEN 'Long'
+     WHEN Milliseconds >= 200000 THEN 'Medium'
+     ELSE 'Short'
+END AS 'Duration'
+FROM chinook.tracks
+ORDER BY Duration;
