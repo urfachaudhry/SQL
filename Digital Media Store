@@ -52,7 +52,7 @@ ON cust.SupportRepId = emp.EmployeeId
 JOIN chinook.invoices AS inv
 ON inv.Customerid = cust.CustomerId;
 
-/* What are the total sales in 2012 */ 
+/* What are the total sales in 2013 */ 
 SELECT ROUND(SUM(Total),2) 
 FROM chinook.invoices
 WHERE InvoiceDate LIKE '2013%';
